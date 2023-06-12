@@ -33,7 +33,7 @@ export default function Home() {
     <main className="flex flex-col">
       <h1 className="text-2xl text-emerald-100 p-4">Produce Order</h1>
       <section className="flex px-4 w-full">
-        <table className="mb-32 table-auto border-collapse border bg-stone-100 border-stone-400 w-screen">
+        <table className="mb-32 table-auto border-collapse border bg-stone-100 border-stone-400">
           <thead>
             <tr className="">
               <th className="p-4 text-left border border-stone-400">Item</th>
