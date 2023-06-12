@@ -48,7 +48,7 @@ export default function ItemCell({ item, key, setTotalCost }: props) {
             onChange={(e) => onQtyChange(e, item)}
             className={`${
               itemQty === 0 ? "" : "bg-green-200"
-            } w-12 text-center`}
+            } w-12 text-center pointer-events-none`}
             type="text"
           />
           <button
@@ -58,6 +58,9 @@ export default function ItemCell({ item, key, setTotalCost }: props) {
             +
           </button>
         </div>
+      </td>
+      <td className="border border-stone-400 p-4 text-left">
+        {(itemQty * item.cost).toFixed(2)}
       </td>
     </tr>
   );
