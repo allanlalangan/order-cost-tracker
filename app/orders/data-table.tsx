@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { OrderQtyCounter } from "@/components/order-qty-counter";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -49,6 +50,8 @@ export function DataTable<TData, TValue>({
                   </TableHead>
                 );
               })}
+              <TableHead>Order Qty</TableHead>
+              <TableHead>Subtotal</TableHead>
             </TableRow>
           ))}
         </TableHeader>
@@ -64,6 +67,12 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
+                <TableCell>
+                  <OrderQtyCounter />
+                </TableCell>
+                <TableCell>
+                  <div className="flex gap-1">$ 0</div>
+                </TableCell>
               </TableRow>
             ))
           ) : (
