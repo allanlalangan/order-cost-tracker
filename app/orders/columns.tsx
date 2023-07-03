@@ -10,6 +10,7 @@ export type Produce = {
   qty: number;
   unit: string;
   cost: number;
+  two_week_ad?: boolean;
 };
 
 export const columns: ColumnDef<Produce>[] = [
