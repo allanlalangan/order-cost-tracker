@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/dark-mode-toggle";
+import { Menubar, NavMenubar } from "@/components/navmenubar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,13 +30,10 @@ export default function RootLayout({
             <Link className="" href="/">
               <h1 className="text-2xl">Natty G&apos;s Produce Order Tracker</h1>
             </Link>
-            <div className="flex">
+
+            <nav className="flex">
               <ModeToggle />
-            </div>
-            <nav className="">
-              <Link className="underline underline-offset-2" href="/orders">
-                Orders
-              </Link>
+              <NavMenubar />
             </nav>
           </header>
           {children}
