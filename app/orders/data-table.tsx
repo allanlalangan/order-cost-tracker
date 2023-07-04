@@ -69,12 +69,7 @@ export function DataTable<TData, TValue>({
                   </TableCell>
                 ))}
 
-                <TableCell>
-                  <OrderQtyCounter product={row.original as Produce} />
-                </TableCell>
-                <TableCell>
-                  <div className="flex gap-1">$ 0</div>
-                </TableCell>
+                <OrderQtyCounter product={row.original as Produce} />
               </TableRow>
             ))
           ) : (
