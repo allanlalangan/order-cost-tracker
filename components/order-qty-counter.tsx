@@ -3,8 +3,14 @@
 import { Button } from "./ui/button";
 import { Plus, Minus } from "lucide-react";
 import { Input } from "./ui/input";
+import { Produce } from "@/app/orders/columns";
 
-export function OrderQtyCounter() {
+type props = {
+  product: Produce;
+};
+
+export function OrderQtyCounter({ product }: props) {
+  console.log(product);
   return (
     <div className="flex gap-1">
       <Button variant="outline" size="icon">
