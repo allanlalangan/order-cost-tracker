@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { OrderQtyCounter } from "@/components/order-qty-counter";
+import { Produce } from "./columns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -68,12 +69,7 @@ export function DataTable<TData, TValue>({
                   </TableCell>
                 ))}
 
-                <TableCell>
-                  <OrderQtyCounter />
-                </TableCell>
-                <TableCell>
-                  <div className="flex gap-1">$ 0</div>
-                </TableCell>
+                <OrderQtyCounter product={row.original as Produce} />
               </TableRow>
             ))
           ) : (
