@@ -27,7 +27,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <header className="flex flex-col justify-between p-2">
             <Link className="" href="/">
-              <h1 className="text-2xl">Natty G&apos;s Produce Order Tracker</h1>
+              <h1 className="text-2xl mb-2">
+                Natty G&apos;s Produce Order Tracker
+              </h1>
             </Link>
 
             <nav className="flex gap-1">
