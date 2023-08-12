@@ -1,10 +1,14 @@
 "use client";
 
+import { columns } from "@/app/orders/columns";
+import { DataTable } from "@/app/orders/data-table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import * as xlsx from "xlsx";
 
 export function UploadOrderGuide() {
+  const [charliesData, setCharliesData] = useState(null);
   const onFileUpload = (e: any) => {
     const file = e.target.files[0];
     readExcel(file);
@@ -35,19 +39,43 @@ export function UploadOrderGuide() {
     });
 
     promise.then((data: any) => {
-      console.log(data.flat().filter((item) => item.PACK !== undefined));
+      if (!data[0]["      ITEM DESCRIPTION         "]) return;
+      setCharliesData(
+        data
+          .flat()
+          .filter((item: any) => item.PACK !== undefined)
+          .map((item: any) => ({
+            name: item["      ITEM DESCRIPTION         "].trim(),
+            item_number: item["    ITEM #"].trim(),
+            pack: item.PACK,
+            size: item["   SIZE"].trim(),
+            weight: item["    WEIGHT"],
+            price: item["    PRICE"].toFixed(2),
+          }))
+      );
     });
   };
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="spreadsheet">Order Guide</Label>
-      <Input
-        onChange={(e) => onFileUpload(e)}
-        id="spreadsheet"
-        type="file"
-        accept=".xlsx"
-      />
-    </div>
+    <>
+      <div className="container mb-4 px-0">
+        <Label className="" htmlFor="spreadsheet">
+          Charlie&apos;s Produce
+        </Label>
+        <Input
+          onChange={(e) => onFileUpload(e)}
+          id="spreadsheet"
+          type="file"
+          accept=".xlsx"
+        />
+      </div>
+      <div className="container px-0">
+        {charliesData === null ? (
+          <span className="mx-auto">Please upload valid spreadsheet</span>
+        ) : (
+          <DataTable columns={columns} data={charliesData} />
+        )}
+      </div>
+    </>
   );
 }
