@@ -7,9 +7,11 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export type Produce = {
   name: string;
-  qty: number;
-  unit: string;
-  cost: number;
+  item_number: string;
+  pack: number;
+  size: string;
+  weight: number;
+  price: number;
   two_week_ad?: boolean;
 };
 
@@ -19,15 +21,23 @@ export const columns: ColumnDef<Produce>[] = [
     header: "Name",
   },
   {
-    accessorKey: "qty",
-    header: "Quantity",
+    accessorKey: "item_number",
+    header: "Item #",
   },
   {
-    accessorKey: "unit",
-    header: "Unit",
+    accessorKey: "pack",
+    header: "Pack",
   },
   {
-    accessorKey: "cost",
-    header: "Cost",
+    accessorKey: "size",
+    header: "Size",
+  },
+  {
+    accessorKey: "weight",
+    header: "Weight(lbs)",
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
   },
 ];

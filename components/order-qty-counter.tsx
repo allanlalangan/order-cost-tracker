@@ -46,7 +46,7 @@ export function OrderQtyCounter({ product }: props) {
       </TableCell>
       <TableCell>
         <div className="flex gap-1 w-16">
-          $ {(count * product.cost).toFixed(2)}
+          $ {(count * product.price).toFixed(2)}
         </div>
       </TableCell>
     </>
