@@ -9,19 +9,29 @@ import { TableCell } from "./ui/table";
 
 type props = {
   product: Produce;
+  setOrderTotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export function OrderQtyCounter({ product }: props) {
+export function OrderQtyCounter({ product, setOrderTotal }: props) {
   const [count, setCount] = useState(0);
+
+  const onSub = () => {
+    if (count === 0) return;
+    setCount(count - 1);
+    setOrderTotal((prev) => prev - +product.price);
+  };
+
+  const onAdd = () => {
+    if (count === 7) return;
+    setCount(count + 1);
+    setOrderTotal((prev) => prev + +product.price);
+  };
+
   return (
     <>
       <TableCell>
         <div className="flex gap-1">
-          <Button
-            onClick={() => (count === 0 ? null : setCount(count - 1))}
-            variant="outline"
-            size="icon"
-          >
+          <Button onClick={onSub} variant="outline" size="icon">
             <Minus className="h-4 w-4" />
           </Button>
           <Input
@@ -35,18 +45,14 @@ export function OrderQtyCounter({ product }: props) {
             value={count}
             max={7}
           />
-          <Button
-            onClick={() => (count === 7 ? null : setCount(count + 1))}
-            variant="outline"
-            size="icon"
-          >
+          <Button onClick={onAdd} variant="outline" size="icon">
             <Plus className="h-4 w-4" />
           </Button>
         </div>
       </TableCell>
       <TableCell>
         <div className="flex gap-1 w-16">
-          $ {(count * product.price).toFixed(2)}
+          $ {(count * +product.price).toFixed(2)}
         </div>
       </TableCell>
     </>
