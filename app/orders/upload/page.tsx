@@ -9,9 +9,13 @@ import * as xlsx from "xlsx";
 
 export default function UploadOrderPage() {
   const [charliesData, setCharliesData] = useState(null);
+  const [OGCData, setOGCData] = useState(null);
+
   const onFileUpload = (e: any) => {
     const file = e.target.files[0];
-    readExcel(file);
+    if (!!file) {
+      readExcel(file);
+    }
   };
 
   const readExcel = (file: any) => {
@@ -39,20 +43,34 @@ export default function UploadOrderPage() {
     });
 
     promise.then((data: any) => {
-      if (!data[0]["      ITEM DESCRIPTION         "]) return;
-      setCharliesData(
-        data
-          .flat()
-          .filter((item: any) => item.PACK !== undefined)
-          .map((item: any) => ({
-            name: item["      ITEM DESCRIPTION         "].trim(),
-            item_number: item["    ITEM #"].trim(),
-            pack: item.PACK,
-            size: item["   SIZE"].trim(),
-            weight: item["    WEIGHT"],
-            price: item["    PRICE"].toFixed(2),
-          }))
-      );
+      if (data[0]["OGC "]) {
+        console.log(
+          data
+            .filter((item: any) => item.PACK !== undefined)
+            .map((item: any) => ({
+              name: item["OGC "].trim(),
+              pack: item.PACK,
+              size: item["   SIZE"].trim(),
+              price: item["    PRICE"],
+            }))
+        );
+      } else if (data[0]["      ITEM DESCRIPTION         "]) {
+        setCharliesData(
+          data
+            .flat()
+            .filter((item: any) => item.PACK !== undefined)
+            .map((item: any) => ({
+              name: item["      ITEM DESCRIPTION         "].trim(),
+              item_number: item["    ITEM #"].trim(),
+              pack: item.PACK,
+              size: item["   SIZE"].trim(),
+              weight: item["    WEIGHT"],
+              price: item["    PRICE"].toFixed(2),
+            }))
+        );
+      } else {
+        return null;
+      }
     });
   };
   return (
