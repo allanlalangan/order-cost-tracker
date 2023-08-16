@@ -4,15 +4,22 @@ import { columns } from "@/app/orders/columns";
 import { DataTable } from "@/app/orders/data-table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { AlertCircle, FileWarning, Terminal } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useState } from "react";
 import * as xlsx from "xlsx";
 
 export default function UploadOrderPage() {
+  const { toast } = useToast();
   const [charliesData, setCharliesData] = useState(null);
   const [OGCData, setOGCData] = useState(null);
+  const [error, setError] = useState(false);
 
   const onFileUpload = (e: any) => {
     const file = e.target.files[0];
+    setError(false);
+    setCharliesData(null);
     if (!!file) {
       readExcel(file);
     }
@@ -38,7 +45,8 @@ export default function UploadOrderPage() {
       };
 
       fileReader.onerror = (error) => {
-        reject(error);
+        setError(true);
+        // reject(error);
       };
     });
 
@@ -68,7 +76,11 @@ export default function UploadOrderPage() {
               price: item["    PRICE"].toFixed(2),
             }))
         );
+        toast({
+          description: "Spreadsheet uploaded successfully",
+        });
       } else {
+        setError(true);
         return null;
       }
     });
@@ -87,11 +99,16 @@ export default function UploadOrderPage() {
         />
       </div>
       <div className="container px-0">
-        {charliesData === null ? (
-          <span className="mx-auto">Please upload valid spreadsheet</span>
-        ) : (
-          <DataTable columns={columns} data={charliesData} />
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              Uh-oh! It appears that spreadsheet is invalid. Please try again.
+            </AlertDescription>
+          </Alert>
         )}
+        {!!charliesData && <DataTable columns={columns} data={charliesData} />}
       </div>
     </section>
   );
