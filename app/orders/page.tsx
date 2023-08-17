@@ -1,5 +1,5 @@
-import { Produce, columns } from "./columns";
-import { DataTable } from "./data-table";
+import { CharliesItem, charliesColumns } from "./columns";
+import { CharliesDataTable } from "./ch-data-table";
 
 async function getData(): Promise<Produce[]> {
   // Fetch data from your API here.
@@ -109,7 +109,7 @@ export default async function DemoPage() {
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <CharliesDataTable columns={charliesColumns} data={data} />
     </div>
   );
 }

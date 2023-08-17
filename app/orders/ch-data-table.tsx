@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { OrderQtyCounter } from "@/components/order-qty-counter";
-import { Produce } from "./columns";
+import { CharliesItem } from "./columns";
 import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
@@ -24,7 +24,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function CharliesDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -38,12 +38,13 @@ export function DataTable<TData, TValue>({
   return (
     <>
       <div className="text-lg fixed top-0 right-0 rounded-bl-lg bg-muted text-foreground py-4 px-8">
-        <h3 className="font-bold">Order Total:</h3>
+        <span className="font-bold">Order Total:</span>
         <span className="font-semibold">
           ${Math.abs(orderTotal).toFixed(2)}
         </span>
       </div>
-      <div className="rounded-md border">
+      <h2 className="text-lg font-bold">Charlie&apos;s Produce</h2>
+      <div className="rounded-md border mb-8">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -81,7 +82,7 @@ export function DataTable<TData, TValue>({
                     </TableCell>
                   ))}
                   <OrderQtyCounter
-                    product={row.original as Produce}
+                    product={row.original as CharliesItem}
                     setOrderTotal={setOrderTotal}
                   />
                 </TableRow>
