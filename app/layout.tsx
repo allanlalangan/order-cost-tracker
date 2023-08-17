@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/dark-mode-toggle";
 import { NavMenubar } from "@/components/navmenubar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             </nav>
           </header>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
