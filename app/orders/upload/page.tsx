@@ -27,27 +27,35 @@ export default function UploadOrderPage() {
 
   const readExcel = (file: any) => {
     const promise = new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(file);
-
-      fileReader.onload = (e: ProgressEvent<FileReader>) => {
-        const bufferArray = e?.target?.result;
-
-        const wb = xlsx.read(bufferArray, { type: "buffer" });
-
-        const wsname = wb.SheetNames[0];
-
-        const ws = wb.Sheets[wsname];
-
-        const data = xlsx.utils.sheet_to_json(ws);
-
-        resolve(data);
-      };
-
-      fileReader.onerror = (error) => {
+      if (
+        file.type !==
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      ) {
         setError(true);
-        // reject(error);
-      };
+        reject("Invalid file type");
+      } else {
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(file);
+
+        fileReader.onload = (e: ProgressEvent<FileReader>) => {
+          const bufferArray = e?.target?.result;
+
+          const wb = xlsx.read(bufferArray, { type: "buffer" });
+
+          const wsname = wb.SheetNames[0];
+
+          const ws = wb.Sheets[wsname];
+
+          const data = xlsx.utils.sheet_to_json(ws);
+
+          resolve(data);
+        };
+
+        fileReader.onerror = (error) => {
+          setError(true);
+          reject(error);
+        };
+      }
     });
 
     promise.then((data: any) => {
@@ -104,7 +112,7 @@ export default function UploadOrderPage() {
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>
-              Uh-oh! It appears that spreadsheet is invalid. Please try again.
+              Please upload a valid spreadsheet
             </AlertDescription>
           </Alert>
         )}
