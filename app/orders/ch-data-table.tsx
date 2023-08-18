@@ -17,16 +17,17 @@ import {
 } from "@/components/ui/table";
 import { OrderQtyCounter } from "@/components/order-qty-counter";
 import { CharliesItem } from "./columns";
-import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  setOrderTotal: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function CharliesDataTable<TData, TValue>({
   columns,
   data,
+  setOrderTotal,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -34,15 +35,8 @@ export function CharliesDataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const [orderTotal, setOrderTotal] = useState(0);
   return (
     <>
-      <div className="text-lg fixed top-0 right-0 rounded-bl-lg bg-muted text-foreground py-4 px-8">
-        <span className="font-bold">Order Total:</span>
-        <span className="font-semibold">
-          ${Math.abs(orderTotal).toFixed(2)}
-        </span>
-      </div>
       <h2 className="text-lg font-bold">Charlie&apos;s Produce</h2>
       <div className="rounded-md border mb-8">
         <Table>

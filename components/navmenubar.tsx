@@ -22,11 +22,11 @@ export function NavMenubar() {
         <MenubarTrigger>Orders</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
-            <Link href="/orders">Example Order Guide</Link>
+            <Link href="/orders">Upload Order Guide</Link>
           </MenubarItem>
-          <MenubarItem>
-            <Link href="/orders/upload">Upload Order Guide</Link>
-          </MenubarItem>
+          {/* <MenubarItem>
+            <Link href="/orders/example">Example Order Guide</Link>
+          </MenubarItem> */}
         </MenubarContent>
       </MenubarMenu>
       {/* <MenubarMenu>

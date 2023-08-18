@@ -3,12 +3,12 @@
 import { Button } from "./ui/button";
 import { Plus, Minus } from "lucide-react";
 import { Input } from "./ui/input";
-import { Produce } from "@/app/orders/columns";
+import { CharliesItem, OGCItem } from "@/app/orders/columns";
 import { useState } from "react";
 import { TableCell } from "./ui/table";
 
 type props = {
-  product: Produce;
+  product: CharliesItem | OGCItem;
   setOrderTotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
