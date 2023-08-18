@@ -16,17 +16,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { OrderQtyCounter } from "@/components/order-qty-counter";
-import { Produce } from "./columns";
-import { useState } from "react";
+import { OGCItem } from "./columns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  setOrderTotal: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function DataTable<TData, TValue>({
+export function OGCDataTable<TData, TValue>({
   columns,
   data,
+  setOrderTotal,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -34,15 +35,9 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const [orderTotal, setOrderTotal] = useState(0);
   return (
     <>
-      <div className="text-lg fixed top-0 right-0 rounded-bl-lg bg-muted text-foreground py-4 px-8">
-        <h3 className="font-bold">Order Total:</h3>
-        <span className="font-semibold">
-          ${Math.abs(orderTotal).toFixed(2)}
-        </span>
-      </div>
+      <h2 className="text-lg font-bold">Organically Grown Company</h2>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -81,7 +76,7 @@ export function DataTable<TData, TValue>({
                     </TableCell>
                   ))}
                   <OrderQtyCounter
-                    product={row.original as Produce}
+                    product={row.original as OGCItem}
                     setOrderTotal={setOrderTotal}
                   />
                 </TableRow>
